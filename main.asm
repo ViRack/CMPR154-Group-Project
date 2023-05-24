@@ -30,6 +30,16 @@ INCLUDE Irvine32.inc
 	promptBad BYTE "Invalid input, please enter again", 13, 10, 0
 	credits DWORD 0
 
+	; STATISTICS VARIABLES
+	namePrompt				BYTE "Name: ", 0
+	availableCreditPrompt	BYTE "Available Credit: ", 0
+	gamesPlayedPrompt		BYTE "Games Played: ", 0
+	correctGuessCountPrompt	BYTE "Correct Guesses: ", 0
+	missedGuessCountPrompt	BYTE "Missed Guesses: ", 0
+	moneyWonPrompt			BYTE "Money You Won: ", 0
+	moneyLostPrompt			BYTE "Money You Lost", 0
+	returnToMenuPrompt		BYTE "Press ENTER to return to MENU..."
+
 
 .code
 
@@ -146,7 +156,7 @@ executeChoice PROC				; Start executeChoice
 		jmp endChoice
 
 	choice4:
-		; call choice 4
+		call displayStatistics
 		jmp endChoice
 
 	choice5:
@@ -173,6 +183,47 @@ displayCredit PROC				; Start displayCredit
 	CALL WaitMsg				; Press any button to continue
 	ret
 displayCredit ENDP				; End displayCredit
+
+; ====== displayStatistics =================================
+displayStatistics PROC			; Start displayStatistics
+
+	mov edx, OFFSET namePrompt
+	call WriteString
+	mov edx, OFFSET nameString
+	call WriteString
+	call Crlf
+
+	mov edx, OFFSET availableCreditPrompt
+	call WriteString
+	call Crlf
+
+	mov edx, OFFSET gamesPlayedPrompt
+	call WriteString
+	call Crlf
+
+	mov edx, OFFSET correctGuessCountPrompt
+	call WriteString
+	call Crlf
+
+	mov edx, OFFSET missedGuessCountPrompt
+	call WriteString
+	call Crlf
+
+	mov edx, OFFSET moneyWonPrompt
+	call WriteString
+	call Crlf
+
+	mov edx, OFFSET moneyLostPrompt
+	call WriteString
+	call Crlf
+
+	call Crlf
+	mov edx, OFFSET returnToMenuPrompt
+	call WriteString
+
+	ret
+
+displayStatistics ENDP
 
 end main
 
